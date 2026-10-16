@@ -1,0 +1,317 @@
+/* Design tokens */
+:root {
+  --paper: #eef1f4;
+  --surface: #ffffff;
+  --ink: #17212b;
+  --muted: #56626e;
+  --line: #cdd5dc;
+  --accent: #0b6e6a;
+  --accent-ink: #ffffff;
+  --danger: #b3261e;
+
+  --font-display: "Iowan Old Style", "Palatino Linotype", Palatino, "Book Antiqua", Georgia, serif;
+  --font-ui: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-ui);
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+.page {
+  max-width: 42rem;
+  margin: 0 auto;
+  padding: 3rem 1.25rem 4rem;
+}
+
+.page-header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+h1 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 3rem;
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+}
+
+.summary {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+/* Form fields */
+.add-form,
+.edit-form {
+  display: grid;
+  gap: 0.5rem;
+}
+
+.add-form {
+  padding: 1rem;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  margin-bottom: 1.5rem;
+}
+
+.field {
+  width: 100%;
+  padding: 0.6rem 0.75rem;
+  font: inherit;
+  color: var(--ink);
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+}
+
+.field::placeholder {
+  color: var(--muted);
+}
+
+textarea.field {
+  resize: vertical;
+}
+
+.title-field {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+}
+
+.field[aria-invalid="true"] {
+  border-color: var(--danger);
+}
+
+.form-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.field-problem {
+  margin: 0;
+  min-height: 1.5rem;
+  color: var(--danger);
+  font-size: 0.9rem;
+}
+
+/* Buttons */
+.button,
+.link-button {
+  font: inherit;
+  cursor: pointer;
+}
+
+.button {
+  padding: 0.45rem 0.9rem;
+  color: var(--ink);
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.button:hover:not(:disabled) {
+  border-color: var(--ink);
+}
+
+.button.primary {
+  color: var(--accent-ink);
+  background: var(--accent);
+  border-color: var(--accent);
+}
+
+.button.primary:hover:not(:disabled) {
+  background: #095a57;
+  border-color: #095a57;
+}
+
+.button.danger {
+  color: #ffffff;
+  background: var(--danger);
+  border-color: var(--danger);
+}
+
+.button:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.link-button {
+  padding: 0;
+  color: inherit;
+  background: none;
+  border: none;
+  text-decoration: underline;
+}
+
+/* Focus: always visible for keyboard users */
+:where(.button, .link-button, .field, .check):focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* Messages */
+.banner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  padding: 0.75rem 1rem;
+  color: var(--danger);
+  background: #fdecea;
+  border: 1px solid #f3b8b3;
+  border-radius: 6px;
+}
+
+.state-message {
+  margin: 2rem 0;
+  color: var(--muted);
+}
+
+.error-state {
+  color: var(--danger);
+}
+
+.error-state p {
+  margin: 0 0 0.75rem;
+}
+
+/* Task list: ruled rows, not cards */
+.task-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border-top: 1px solid var(--ink);
+}
+
+.task {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: start;
+  gap: 0.25rem 1rem;
+  padding: 1rem 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.task.editing {
+  display: block;
+}
+
+.check {
+  width: 1.4rem;
+  height: 1.4rem;
+  margin: 0.2rem 0 0;
+  accent-color: var(--accent);
+  cursor: pointer;
+}
+
+.task-body {
+  min-width: 0;
+}
+
+.task-title {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  line-height: 1.3;
+  cursor: pointer;
+  overflow-wrap: anywhere;
+}
+
+/* The line that strikes a finished task is drawn as a background so it can
+   animate from left to right when a task is completed. */
+.task-title-text {
+  background-image: linear-gradient(currentColor, currentColor);
+  background-repeat: no-repeat;
+  background-position: 0 58%;
+  background-size: 0% 2px;
+  transition: background-size 0.3s ease, color 0.3s ease;
+}
+
+.task.done .task-title-text {
+  color: var(--muted);
+  background-size: 100% 2px;
+}
+
+.task-description,
+.task-meta {
+  margin: 0.15rem 0 0;
+  color: var(--muted);
+  overflow-wrap: anywhere;
+}
+
+.task-description {
+  white-space: pre-wrap;
+}
+
+.task-meta {
+  font-size: 0.85rem;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.5rem;
+}
+
+.confirm-text {
+  font-size: 0.9rem;
+  color: var(--muted);
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Small screens: actions move under the task text */
+@media (max-width: 36rem) {
+  h1 {
+    font-size: 2.25rem;
+  }
+
+  .task {
+    grid-template-columns: auto 1fr;
+  }
+
+  .task .actions {
+    grid-column: 2;
+    justify-content: flex-start;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .task-title-text {
+    transition: none;
+  }
+}

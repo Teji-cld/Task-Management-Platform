@@ -1,0 +1,50 @@
+services:
+  frontend:
+    build:
+      context: ./frontend
+    ports:
+      - "80:80"
+    depends_on:
+      backend:
+        condition: service_healthy
+
+  backend:
+    build:
+      context: ./backend
+    environment:
+      POSTGRES_HOST: db
+      POSTGRES_PASSWORD: titan
+      POSTGRES_USER: task_user
+      POSTGRES_DB: task
+      REDIS_HOST: redis  
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_started
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/health')"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 20s
+
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: task_user
+      POSTGRES_PASSWORD: titan
+      POSTGRES_DB: task
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  redis:
+    image: redis:7-alpine
+
+volumes:
+  db-data:

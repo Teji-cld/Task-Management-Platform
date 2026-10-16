@@ -1,0 +1,10 @@
+# Runtime dependencies. Ranges are used so the file installs cleanly on Python 3.12.
+# After your first successful install, run `pip freeze` and pin exact versions
+# for reproducible builds.
+fastapi>=0.115,<1.0
+uvicorn[standard]>=0.30,<1.0
+SQLAlchemy>=2.0.30,<2.1
+psycopg[binary]>=3.2,<4.0
+redis>=5.0,<8.0
+pydantic>=2.7,<3.0
+python-dotenv>=1.0,<2.0

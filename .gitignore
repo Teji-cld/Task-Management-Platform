@@ -1,0 +1,18 @@
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+.pytest_cache/
+
+# Node
+node_modules/
+frontend/dist/
+
+# Secrets and local files (never commit real credentials)
+.env
+*.db
+
+# Editor / OS
+.vscode/
+.DS_Store
