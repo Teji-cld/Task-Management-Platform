@@ -2,8 +2,6 @@
 
 A small task manager: create, edit, complete and delete tasks.
 
-This repository contains **application code only**. There are no Dockerfiles, Compose files, or Nginx configuration here on purpose. Writing those is the exercise.
-
 | Part | Technology |
 |---|---|
 | Frontend | React 18 + Vite |
